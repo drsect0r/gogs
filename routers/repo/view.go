@@ -70,6 +70,7 @@ func Home(ctx *context.Context) {
 		ctx.Handle(404, "repo.Home", nil)
 		return
 	}
+
 	if entry != nil && !entry.IsDir() {
 		blob := entry.Blob()
 
@@ -91,12 +92,9 @@ func Home(ctx *context.Context) {
 
 			_, isTextFile := base.IsTextFile(buf)
 			_, isImageFile := base.IsImageFile(buf)
-			_, isPDFFile := base.IsPDFFile(buf)
 			ctx.Data["IsFileText"] = isTextFile
 
 			switch {
-			case isPDFFile:
-				ctx.Data["IsPDFFile"] = true
 			case isImageFile:
 				ctx.Data["IsImageFile"] = true
 			case isTextFile:
